@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./backend
+    container_name: uptime-backend
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=4000
+      # Every 30 seconds for fast local demo/verification. Change to "0 * * * * *" style for every minute.
+      - CHECK_INTERVAL_CRON=*/30 * * * * *
+    volumes:
+      - backend_data:/app/data
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: uptime-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  backend_data:
