@@ -1,4 +1,4 @@
-# 📡 Uptime Monitor (MVP)
+# Uptime Monitor (MVP)
 
 A lightweight, full-stack uptime monitor: register URLs, periodically ping them,
 and view real-time up/down status with response times in a simple dashboard.
@@ -30,12 +30,12 @@ image build. Once both containers are up, open the dashboard.
 ## Architecture
 
 ```
-┌─────────────┐        polls every 5s         ┌──────────────┐
-│  Frontend   │ ─────────────────────────────▶ │   Backend    │
+┌─────────────┐        polls every 5s          ┌──────────────┐
+│  Frontend   │ ────────────────────────────▶  |   Backend    |
 │ (nginx,     │   GET /api/urls                │  (Express)   │
 │  static JS) │   POST /api/urls               │              │
 └─────────────┘   DELETE /api/urls/:id         └──────┬───────┘
-     :8080                                              │
+     :8080                                            │
                                                   node-cron every 30s
                                                   pings each registered URL
                                                           │
